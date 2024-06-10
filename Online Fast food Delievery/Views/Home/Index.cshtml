@@ -1,0 +1,49 @@
+﻿@using FastFoodModels
+@model List<Item>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    @if (item.Image != null && item.Image.Length > 0)
+                    {
+                        <img src="data:image;base64,@Convert.ToBase64String(item.Image)" alt="Item Image" class="card-img-top" />
+                    }
+                    else
+                    {
+                        <span>No Image Available</span>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">
+                            @item.Description <br /> @item.Price $<br />
+                            <a asp-controller="Cart" asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id">Details</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<style>
+    .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-img-top {
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+</style>

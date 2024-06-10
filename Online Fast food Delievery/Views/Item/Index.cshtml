@@ -1,0 +1,66 @@
+﻿@using FastFoodModels
+@model List<Item>
+
+<h1>Items List</h1>
+
+<p>
+    <a asp-controller="Item" asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Category</th>
+            <th>sub Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Title</td>
+                <td>@category.Description </td>
+                <td>@category.Price</td>
+                <td>
+                    @if (category.Image != null && category.Image.Length > 0)
+                    {
+                        <img src="data:image;base64,@Convert.ToBase64String(category.Image)" alt="Item Image" class="img-thumbnail" />
+                    }
+                    else
+                    {
+                        <span>No Image Available</span>
+                    }
+                 
+                </td>
+                <td>@category.Category.Title</td>
+                <td>@category.SubCategory.Title</td>
+
+                <td>
+                    <a asp-controller="Item" asp-action="Edit" asp-route-id="@category.Id">Edit</a>|
+                    <a asp-controller="Item" asp-action="Delete" asp-route-id="@category.Id">Delete</a>|
+                    <a asp-controller="Item" asp-action="Details" asp-route-id="@category.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .img-thumbnail {
+        order-radius: 1rem;
+        max-width: 50px;
+    }
+</style>
+
+
+      
+

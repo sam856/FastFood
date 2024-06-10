@@ -1,0 +1,34 @@
+﻿@using FastFoodModels
+@model List<SubCategory>
+
+<h1>SubCategory List</h1>
+
+<p>
+    <a asp-controller="SubCategory" asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subCategory in Model)
+        {
+            <tr>
+                <td>@subCategory.Id</td>
+                <td>@subCategory.Title</td>
+                <td>@subCategory.Category.Title</td>
+                <td>
+                    <a asp-controller="SubCategory" asp-action="Edit" asp-route-id="@subCategory.Id" >Edit</a> |
+                    <a asp-controller="SubCategory" asp-action="Delete" asp-route-id="@subCategory.Id">Delete</a> |
+                    <a asp-controller="SubCategory" asp-action="Details" asp-route-id="@subCategory.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

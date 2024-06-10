@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FastFoodModels.Cart>
+
+<h2>Your Cart</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Your cart is empty.
+    </div>
+}
+else
+{
+    <div class="cart-items">
+        @foreach (var cart in Model)
+        {
+            <div class="cart-item mb-4 p-3 border rounded">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        @if (cart.Item.Image != null && cart.Item.Image.Length > 0)
+                        {
+                            <img src="data:image;base64,@Convert.ToBase64String(cart.Item.Image)" alt="Item Image" class="img-thumbnail" />
+                        }
+                        else
+                        {
+                            <img src="~/images/no-image.png" alt="No Image Available" class="img-thumbnail" />
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <h5>@cart.Item.Title</h5>
+                        <p>@cart.Item.Description</p>
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Price: </strong> @cart.Item.Price.ToString("C")
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Quantity: </strong>
+                        <div class="d-flex align-items-center">
+                            <form asp-action="Remove" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@cart.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm">-</button>
+                            </form>
+                            <span class="mx-2">@cart.Count</span>
+                            <form asp-action="Add" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@cart.Id" />
+                                <button type="submit" class="btn btn-success btn-sm">+</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <strong>Subtotal: </strong> @((cart.Count * cart.Item.Price).ToString("C", System.Globalization.CultureInfo.CurrentCulture))
+                        <form asp-action="Delete" method="post" class="d-inline ml-3">
+                            <input type="hidden" name="id" value="@cart.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="cart-summary text-right mt-4">
+        <h4>Total: @Model.Sum(x => x.Count * x.Item.Price).ToString("C")</h4>
+        <a asp-action="Checkout" class="btn btn-success">Proceed to Checkout</a>
+    </div>
+}

@@ -1,0 +1,13 @@
+﻿@model Online_Fast_food_Delievery.Models.Dto.CategoryDto
+
+<h1>Create Category</h1>
+
+<form asp-controller="Category" asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

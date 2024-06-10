@@ -1,0 +1,2 @@
+E:\C#\Online Fast food Delievery\FastFoodRepositry\obj\Debug\FastFoodRepositry.csproj.AssemblyReference.cache
+E:\C#\Online Fast food Delievery\FastFoodRepositry\obj\Debug\FastFoodRepositry.csproj.CoreCompileInputs.cache
